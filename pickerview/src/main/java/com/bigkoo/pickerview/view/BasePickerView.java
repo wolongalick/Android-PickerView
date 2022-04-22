@@ -33,6 +33,7 @@ public class BasePickerView {
     private ViewGroup dialogView;//附加Dialog 的 根View
 
     protected PickerOptions mPickerOptions;
+    protected PickerOptions mPickerOptions2;
     private OnDismissListener onDismissListener;
     private boolean dismissing;
 

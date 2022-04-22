@@ -18,16 +18,12 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class WheelTime {
+public class WheelTimeRange {
     public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    public static DateFormat dateFormatDate = new SimpleDateFormat("yyyy-MM-dd");
     private View view;
     private WheelView wv_year;
     private WheelView wv_month;
     private WheelView wv_day;
-    private WheelView wv_hours;
-    private WheelView wv_minutes;
-    private WheelView wv_seconds;
     private int gravity;
 
     private boolean[] type;
@@ -51,7 +47,7 @@ public class WheelTime {
     private boolean isLunarCalendar = false;
     private ISelectTimeCallback mSelectChangeCallback;
 
-    public WheelTime(View view, boolean[] type, int gravity, int textSize) {
+    public WheelTimeRange(View view, boolean[] type, int gravity, int textSize) {
         super();
         this.view = view;
         this.type = type;
@@ -124,24 +120,6 @@ public class WheelTime {
         wv_day.setCurrentItem(day - 1);
         wv_day.setGravity(gravity);
 
-        wv_hours = (WheelView) view.findViewById(R.id.hour);
-        wv_hours.setAdapter(new NumericWheelAdapter(0, 23));
-        //wv_hours.setLabel(context.getString(R.string.pickerview_hours));// 添加文字
-        wv_hours.setCurrentItem(h);
-        wv_hours.setGravity(gravity);
-
-        wv_minutes = (WheelView) view.findViewById(R.id.min);
-        wv_minutes.setAdapter(new NumericWheelAdapter(0, 59));
-        //wv_minutes.setLabel(context.getString(R.string.pickerview_minutes));// 添加文字
-        wv_minutes.setCurrentItem(m);
-        wv_minutes.setGravity(gravity);
-
-        wv_seconds = (WheelView) view.findViewById(R.id.second);
-        wv_seconds.setAdapter(new NumericWheelAdapter(0, 59));
-        //wv_seconds.setLabel(context.getString(R.string.pickerview_minutes));// 添加文字
-        wv_seconds.setCurrentItem(m);
-        wv_seconds.setGravity(gravity);
-
         // 添加"年"监听
         wv_year.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -212,9 +190,6 @@ public class WheelTime {
         });
 
         setChangedListener(wv_day);
-        setChangedListener(wv_hours);
-        setChangedListener(wv_minutes);
-        setChangedListener(wv_seconds);
 
         if (type.length != 6) {
             throw new RuntimeException("type[] length is not 6");
@@ -222,9 +197,6 @@ public class WheelTime {
         wv_year.setVisibility(type[0] ? View.VISIBLE : View.GONE);
         wv_month.setVisibility(type[1] ? View.VISIBLE : View.GONE);
         wv_day.setVisibility(type[2] ? View.VISIBLE : View.GONE);
-        wv_hours.setVisibility(type[3] ? View.VISIBLE : View.GONE);
-        wv_minutes.setVisibility(type[4] ? View.VISIBLE : View.GONE);
-        wv_seconds.setVisibility(type[5] ? View.VISIBLE : View.GONE);
         setContentTextSize();
     }
 
@@ -357,23 +329,6 @@ public class WheelTime {
 
         wv_day.setGravity(gravity);
         //时
-        wv_hours = (WheelView) view.findViewById(R.id.hour);
-        wv_hours.setAdapter(new NumericWheelAdapter(0, 23));
-
-        wv_hours.setCurrentItem(h);
-        wv_hours.setGravity(gravity);
-        //分
-        wv_minutes = (WheelView) view.findViewById(R.id.min);
-        wv_minutes.setAdapter(new NumericWheelAdapter(0, 59));
-
-        wv_minutes.setCurrentItem(m);
-        wv_minutes.setGravity(gravity);
-        //秒
-        wv_seconds = (WheelView) view.findViewById(R.id.second);
-        wv_seconds.setAdapter(new NumericWheelAdapter(0, 59));
-
-        wv_seconds.setCurrentItem(s);
-        wv_seconds.setGravity(gravity);
 
         // 添加"年"监听
         wv_year.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -504,9 +459,6 @@ public class WheelTime {
         });
 
         setChangedListener(wv_day);
-        setChangedListener(wv_hours);
-        setChangedListener(wv_minutes);
-        setChangedListener(wv_seconds);
 
         if (type.length != 6) {
             throw new IllegalArgumentException("type[] length is not 6");
@@ -514,9 +466,6 @@ public class WheelTime {
         wv_year.setVisibility(type[0] ? View.VISIBLE : View.GONE);
         wv_month.setVisibility(type[1] ? View.VISIBLE : View.GONE);
         wv_day.setVisibility(type[2] ? View.VISIBLE : View.GONE);
-        wv_hours.setVisibility(type[3] ? View.VISIBLE : View.GONE);
-        wv_minutes.setVisibility(type[4] ? View.VISIBLE : View.GONE);
-        wv_seconds.setVisibility(type[5] ? View.VISIBLE : View.GONE);
         setContentTextSize();
     }
 
@@ -577,9 +526,6 @@ public class WheelTime {
         wv_day.setTextSize(textSize);
         wv_month.setTextSize(textSize);
         wv_year.setTextSize(textSize);
-        wv_hours.setTextSize(textSize);
-        wv_minutes.setTextSize(textSize);
-        wv_seconds.setTextSize(textSize);
     }
 
 
@@ -603,21 +549,6 @@ public class WheelTime {
         } else {
             wv_day.setLabel(view.getContext().getString(R.string.pickerview_day));
         }
-        if (label_hours != null) {
-            wv_hours.setLabel(label_hours);
-        } else {
-            wv_hours.setLabel(view.getContext().getString(R.string.pickerview_hours));
-        }
-        if (label_mins != null) {
-            wv_minutes.setLabel(label_mins);
-        } else {
-            wv_minutes.setLabel(view.getContext().getString(R.string.pickerview_minutes));
-        }
-        if (label_seconds != null) {
-            wv_seconds.setLabel(label_seconds);
-        } else {
-            wv_seconds.setLabel(view.getContext().getString(R.string.pickerview_seconds));
-        }
 
     }
 
@@ -626,9 +557,6 @@ public class WheelTime {
         wv_year.setTextXOffset(x_offset_year);
         wv_month.setTextXOffset(x_offset_month);
         wv_day.setTextXOffset(x_offset_day);
-        wv_hours.setTextXOffset(x_offset_hours);
-        wv_minutes.setTextXOffset(x_offset_minutes);
-        wv_seconds.setTextXOffset(x_offset_seconds);
     }
 
     /**
@@ -640,9 +568,6 @@ public class WheelTime {
         wv_year.setCyclic(cyclic);
         wv_month.setCyclic(cyclic);
         wv_day.setCyclic(cyclic);
-        wv_hours.setCyclic(cyclic);
-        wv_minutes.setCyclic(cyclic);
-        wv_seconds.setCyclic(cyclic);
     }
 
     public String getTime() {
@@ -657,26 +582,17 @@ public class WheelTime {
             if ((wv_month.getCurrentItem() + startMonth) == startMonth) {
                 sb.append((wv_year.getCurrentItem() + startYear)).append("-")
                         .append((wv_month.getCurrentItem() + startMonth)).append("-")
-                        .append((wv_day.getCurrentItem() + startDay)).append(" ")
-                        .append(wv_hours.getCurrentItem()).append(":")
-                        .append(wv_minutes.getCurrentItem()).append(":")
-                        .append(wv_seconds.getCurrentItem());
+                        .append((wv_day.getCurrentItem() + startDay));
             } else {
                 sb.append((wv_year.getCurrentItem() + startYear)).append("-")
                         .append((wv_month.getCurrentItem() + startMonth)).append("-")
-                        .append((wv_day.getCurrentItem() + 1)).append(" ")
-                        .append(wv_hours.getCurrentItem()).append(":")
-                        .append(wv_minutes.getCurrentItem()).append(":")
-                        .append(wv_seconds.getCurrentItem());
+                        .append((wv_day.getCurrentItem() + 1));
             }
 
         } else {
             sb.append((wv_year.getCurrentItem() + startYear)).append("-")
                     .append((wv_month.getCurrentItem() + 1)).append("-")
-                    .append((wv_day.getCurrentItem() + 1)).append(" ")
-                    .append(wv_hours.getCurrentItem()).append(":")
-                    .append(wv_minutes.getCurrentItem()).append(":")
-                    .append(wv_seconds.getCurrentItem());
+                    .append((wv_day.getCurrentItem() + 1));
         }
 
         return sb.toString();
@@ -710,10 +626,7 @@ public class WheelTime {
 
         sb.append(solar[0]).append("-")
                 .append(solar[1]).append("-")
-                .append(solar[2]).append(" ")
-                .append(wv_hours.getCurrentItem()).append(":")
-                .append(wv_minutes.getCurrentItem()).append(":")
-                .append(wv_seconds.getCurrentItem());
+                .append(solar[2]);
         return sb.toString();
     }
 
@@ -804,9 +717,6 @@ public class WheelTime {
         wv_day.setLineSpacingMultiplier(lineSpacingMultiplier);
         wv_month.setLineSpacingMultiplier(lineSpacingMultiplier);
         wv_year.setLineSpacingMultiplier(lineSpacingMultiplier);
-        wv_hours.setLineSpacingMultiplier(lineSpacingMultiplier);
-        wv_minutes.setLineSpacingMultiplier(lineSpacingMultiplier);
-        wv_seconds.setLineSpacingMultiplier(lineSpacingMultiplier);
     }
 
     /**
@@ -818,9 +728,6 @@ public class WheelTime {
         wv_day.setDividerColor(dividerColor);
         wv_month.setDividerColor(dividerColor);
         wv_year.setDividerColor(dividerColor);
-        wv_hours.setDividerColor(dividerColor);
-        wv_minutes.setDividerColor(dividerColor);
-        wv_seconds.setDividerColor(dividerColor);
     }
 
     /**
@@ -832,9 +739,6 @@ public class WheelTime {
         wv_day.setDividerType(dividerType);
         wv_month.setDividerType(dividerType);
         wv_year.setDividerType(dividerType);
-        wv_hours.setDividerType(dividerType);
-        wv_minutes.setDividerType(dividerType);
-        wv_seconds.setDividerType(dividerType);
     }
 
     /**
@@ -846,9 +750,6 @@ public class WheelTime {
         wv_day.setTextColorCenter(textColorCenter);
         wv_month.setTextColorCenter(textColorCenter);
         wv_year.setTextColorCenter(textColorCenter);
-        wv_hours.setTextColorCenter(textColorCenter);
-        wv_minutes.setTextColorCenter(textColorCenter);
-        wv_seconds.setTextColorCenter(textColorCenter);
     }
 
     /**
@@ -860,9 +761,6 @@ public class WheelTime {
         wv_day.setTextColorOut(textColorOut);
         wv_month.setTextColorOut(textColorOut);
         wv_year.setTextColorOut(textColorOut);
-        wv_hours.setTextColorOut(textColorOut);
-        wv_minutes.setTextColorOut(textColorOut);
-        wv_seconds.setTextColorOut(textColorOut);
     }
 
     /**
@@ -872,9 +770,6 @@ public class WheelTime {
         wv_day.isCenterLabel(isCenterLabel);
         wv_month.isCenterLabel(isCenterLabel);
         wv_year.isCenterLabel(isCenterLabel);
-        wv_hours.isCenterLabel(isCenterLabel);
-        wv_minutes.isCenterLabel(isCenterLabel);
-        wv_seconds.isCenterLabel(isCenterLabel);
     }
 
     public void setSelectChangeCallback(ISelectTimeCallback mSelectChangeCallback) {
@@ -885,17 +780,11 @@ public class WheelTime {
         wv_day.setItemsVisibleCount(itemsVisibleCount);
         wv_month.setItemsVisibleCount(itemsVisibleCount);
         wv_year.setItemsVisibleCount(itemsVisibleCount);
-        wv_hours.setItemsVisibleCount(itemsVisibleCount);
-        wv_minutes.setItemsVisibleCount(itemsVisibleCount);
-        wv_seconds.setItemsVisibleCount(itemsVisibleCount);
     }
 
     public void setAlphaGradient(boolean isAlphaGradient) {
         wv_day.setAlphaGradient(isAlphaGradient);
         wv_month.setAlphaGradient(isAlphaGradient);
         wv_year.setAlphaGradient(isAlphaGradient);
-        wv_hours.setAlphaGradient(isAlphaGradient);
-        wv_minutes.setAlphaGradient(isAlphaGradient);
-        wv_seconds.setAlphaGradient(isAlphaGradient);
     }
 }

@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -18,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btn_no_linkage = (Button) findViewById(R.id.btn_no_linkage);
         Button btn_to_Fragment = (Button) findViewById(R.id.btn_fragment);
         Button btn_circle = (Button) findViewById(R.id.btn_circle);
+        Button btn_SelectDateRange = (Button) findViewById(R.id.btn_SelectDateRange);
 
 
         btn_Time.setOnClickListener(this);
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_no_linkage.setOnClickListener(this);
         btn_to_Fragment.setOnClickListener(this);
         btn_circle.setOnClickListener(this);
+        btn_SelectDateRange.setOnClickListener(this);
 
         findViewById(R.id.btn_GotoJsonData).setOnClickListener(this);
         findViewById(R.id.btn_lunar).setOnClickListener(this);
@@ -113,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             pvCustomLunar.show();
         } else if (v.getId() == R.id.btn_circle) {
             startActivity(new Intent(MainActivity.this, TestCircleWheelViewActivity.class));
+        }else if (v.getId() == R.id.btn_SelectDateRange) {
+            startActivity(new Intent(MainActivity.this, SelectDateRangeActivity.class));
         }
     }
 

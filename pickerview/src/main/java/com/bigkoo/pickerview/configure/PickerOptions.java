@@ -31,6 +31,7 @@ public class PickerOptions {
 
     public static final int TYPE_PICKER_OPTIONS = 1;
     public static final int TYPE_PICKER_TIME = 2;
+    public static final int TYPE_PICKER_TIME_RANGE = 3;
 
     public OnOptionsSelectListener optionsSelectListener;
     public OnTimeSelectListener timeSelectListener;
@@ -71,8 +72,10 @@ public class PickerOptions {
     public PickerOptions(int buildType) {
         if (buildType == TYPE_PICKER_OPTIONS) {
             layoutRes = R.layout.pickerview_options;
-        } else {
+        } else if(buildType == TYPE_PICKER_TIME){
             layoutRes = R.layout.pickerview_time;
+        }else if(buildType == TYPE_PICKER_TIME_RANGE){
+            layoutRes = R.layout.pickerview_time_range;
         }
     }
 
